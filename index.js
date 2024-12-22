@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import config from './config.js';
 import connectDb from './dbConfig.js';
 import  authRouter  from './routers/authRouter.js';
+import booksRouter from './routers/books/booksRouter.js';
 const app = express();
 
 app.use(express.json());
@@ -14,7 +15,7 @@ app.get('/',(req,res) => {
 })
 
 app.use('/api/auth',authRouter);
-
+app.use('/api/books',booksRouter);
 const PORT = config.PORT;
 app.listen(PORT , () => {
     console.log(`Server is running on ${PORT}`);
