@@ -1,6 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
-import config from './config.js';
+import {config} from './config.js';
 import connectDb from './dbConfig.js';
 import  authRouter  from './routers/authRouter.js';
 import booksRouter from './routers/books/booksRouter.js';

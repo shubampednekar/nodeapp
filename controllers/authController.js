@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '../config.js';
+import {config} from '../config.js';
 import { User } from "../models/userModel.js";
 import { getStatusCode, StatusCodes } from 'http-status-codes';
 import { Resettoken } from '../models/resettokenModel.js';
