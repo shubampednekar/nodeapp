@@ -4,6 +4,14 @@ import {config} from '../config.js';
 import { User } from "../models/userModel.js";
 import { getStatusCode, StatusCodes } from 'http-status-codes';
 import { Resettoken } from '../models/resettokenModel.js';
+import { sendEmail } from '../utils/emailSender.js';    
+import { EmailMessages } from '../enum.js';
+import path from 'path';
+import fs from 'fs';
+
+const  template = path.join(path.resolve(), 'emailTemplates', 'login.html');
+const emailTemplate = fs.readFileSync(template,'utf-8');
+
 export const login =async (req,res) => {
     const { username , password } = req.body;
     try {
@@ -14,8 +22,9 @@ export const login =async (req,res) => {
             const isMatch = await bcrypt.compare(password,user.password);
             if(isMatch){
                 const token = jwt.sign({ id : user._id},config.JWT_SECRET,{expiresIn : '1h'});
-
+                const mail = await sendEmail(EmailMessages.LOGIN_SUBJECT,user.email,EmailMessages.LOGIN_SUCCESS, emailTemplate);
                 res.status(StatusCodes.OK).json({ message : "Login Successfully",token : token})
+ 
             }else{
                 res.status(StatusCodes.UNAUTHORIZED).json({ message : "Invalid Password"})
             }
