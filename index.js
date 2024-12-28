@@ -4,7 +4,7 @@ import {config} from './config.js';
 import connectDb from './dbConfig.js';
 import  authRouter  from './routers/authRouter.js';
 import booksRouter from './routers/books/booksRouter.js';
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(morgan('tiny'));
